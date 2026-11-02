@@ -59,7 +59,7 @@ function page(id, { hash = id, nav = 'push' } = {}) {
   else if (nav === 'replace') history.replaceState(null, '', '#' + hash);
   if (nav !== 'replace') focusPageHeading();
 }
-const scrollBehavior = () => (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth');
+const scrollBehavior = () => 'smooth';
 // Moves keyboard/screen-reader focus to the new page instead of leaving it on the clicked control.
 function focusPageHeading() {
   const h = document.querySelector('.page.active h1');

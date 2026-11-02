@@ -2445,34 +2445,6 @@ h2 {
 .skip-link:focus {
   top: 12px;
 }
-/* Reduced motion: drop the large movements (page slide-in, smooth scroll, hover lifts, cursor glow),
-   keep the slow decorative loops (hero orbit and emblem, brand rings, halos, sparks). */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .page,
-  .mobile-menu {
-    animation: none;
-  }
-  .cursor-glow {
-    display: none;
-  }
-  .btn:hover,
-  .product-card:hover .product-visual,
-  .product-card:hover .source-product,
-  .product-card:hover .product-visual.photo .source-product,
-  .home-banner:hover,
-  .home-banner:hover .banner-product,
-  .home-banner:hover .banner-product.source-banner,
-  .catalog-banner:hover,
-  .spotlight-card:hover,
-  .cert-frame:hover,
-  .site-footer .footer-column a:hover {
-    transform: none !important;
-  }
-}
-
 /* content: care products, certificates */
 [hidden] {
   display: none !important;
