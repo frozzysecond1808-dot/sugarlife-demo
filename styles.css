@@ -31,6 +31,8 @@ a {
 }
 button {
   cursor: pointer;
+  /* iOS Safari paints buttons without a colour in system blue */
+  color: inherit;
 }
 a {
   color: inherit;

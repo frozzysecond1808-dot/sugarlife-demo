@@ -195,7 +195,7 @@ function renderProducts() {
   document.getElementById('productGrid').innerHTML = list
     .map(
       p =>
-        `<article class="product-card" data-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${esc(p.name)}"><div class="product-visual ${p.color}">${jarMarkup(p.id)}<span class="visual-caption">Sugar Life · Professional</span></div><div class="product-info"><div><h3>${esc(p.name)}</h3><p>${esc(p.category)}${p.type === 'paste' ? ' · профессиональная серия' : ''}</p><span class="card-link">Подробнее о продукте ↗</span></div><span class="price">${priceLabel(p)}</span></div></article>`,
+        `<article class="product-card" data-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${esc(p.name)}"><div class="product-visual ${p.color}">${jarMarkup(p.id)}<span class="visual-caption">Sugar Life · Professional</span></div><div class="product-info"><div><h3>${esc(p.name)}</h3><p>${esc(p.category)}${p.type === 'paste' ? ' · профессиональная серия' : ''}</p><span class="card-link">Подробнее о продукте ↗︎</span></div><span class="price">${priceLabel(p)}</span></div></article>`,
     )
     .join('');
   document.querySelectorAll('.product-card').forEach(el => {
@@ -357,7 +357,7 @@ function renderCart() {
     bottom = document.getElementById('cartBottom');
   if (!cart.length) {
     items.innerHTML =
-      '<div class="empty"><p>В корзине пока ничего нет.</p><button class="btn" data-page="catalog">Перейти в каталог ↗</button></div>';
+      '<div class="empty"><p>В корзине пока ничего нет.</p><button class="btn" data-page="catalog">Перейти в каталог ↗︎</button></div>';
     bottom.innerHTML = '';
     items.querySelector('[data-page]').onclick = () => page('catalog');
     return;
@@ -372,7 +372,7 @@ function renderCart() {
     )
     .join('');
   let total = cart.reduce((s, x) => s + x.price * x.qty, 0);
-  bottom.innerHTML = `<div class="cart-summary"><div class="summary-line"><span>Товары</span><span>${rub(total)}</span></div><div class="summary-line"><span>Доставка</span><span>Рассчитывается отдельно</span></div><div class="summary-line total"><span>Итого</span><span>${rub(total)}</span></div><button class="btn" id="checkoutBtn" aria-controls="checkout" aria-expanded="${document.getElementById('checkout').classList.contains('show')}">Перейти к оформлению ↗</button></div>`;
+  bottom.innerHTML = `<div class="cart-summary"><div class="summary-line"><span>Товары</span><span>${rub(total)}</span></div><div class="summary-line"><span>Доставка</span><span>Рассчитывается отдельно</span></div><div class="summary-line total"><span>Итого</span><span>${rub(total)}</span></div><button class="btn" id="checkoutBtn" aria-controls="checkout" aria-expanded="${document.getElementById('checkout').classList.contains('show')}">Перейти к оформлению ↗︎</button></div>`;
   // Re-rendering replaces the buttons, so focus is put back where the user was.
   const refocus = sel => (document.querySelector(sel) || document.querySelector('#cart h1')).focus();
   document.querySelectorAll('[data-dec]').forEach(
