@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#f6f0e8" />
+    <title>Sugar Life — красота в деталях</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main" id="skipLink">Перейти к содержимому</a>
+    <div class="cursor-glow" id="glow"></div>
+    <div class="grain"></div>
+    <header>
+      <a class="logo" href="#home" data-page="home">SUGAR LIFE<small>BEAUTY IN EVERY DETAIL</small></a>
+      <nav aria-label="Основное меню">
+        <a href="#home" data-page="home" class="active">Главная</a
+        ><a href="#catalog" data-page="catalog">Каталог</a><a href="#brand" data-page="brand">О бренде</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn cart-btn" data-page="cart">
+          <svg class="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5.5 8.5h13l-1.1 11.5H6.6L5.5 8.5Z" />
+            <path d="M9 8.5V7a3 3 0 0 1 6 0v1.5" /></svg
+          ><span class="cart-label">Корзина </span><span class="cart-count" id="cartCount">0</span></button
+        ><button
+          class="icon-btn profile-btn"
+          id="profileBtn"
+          data-page="account"
+          aria-label="Профиль"
+          title="Профиль"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="3.5" />
+            <path d="M4.8 20c.5-3.6 3.2-5.5 7.2-5.5s6.7 1.9 7.2 5.5" />
+          </svg></button
+        ><button
+          class="icon-btn menu-btn"
+          id="menuBtn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+          aria-label="Открыть меню"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path class="menu-open" d="M4 7h16M4 12h16M4 17h16" />
+            <path class="menu-close" d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobileMenu" hidden>
+        <nav aria-label="Мобильное меню">
+          <a href="#home" data-page="home" class="active">Главная</a
+          ><a href="#catalog" data-page="catalog">Каталог</a><a href="#brand" data-page="brand">О бренде</a
+          ><a href="#faq" data-page="faq">Частые вопросы</a>
+        </nav>
+      </div>
+    </header>
+    <main id="main">
+      <section class="page active" id="home">
+        <div class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow">Профессиональная косметика для депиляции</div>
+            <h1>Ритуал<br />гладкости<br /><em>и заботы.</em></h1>
+            <p>
+              Профессиональные средства для шугаринга, созданные с вниманием к деталям. Почувствуйте разницу в
+              каждом прикосновении.
+            </p>
+            <button class="btn" data-page="catalog">Перейти в каталог <span class="arrow">↗</span></button>
+            <div class="hero-note">SUGAR LIFE · CARE THAT YOU CAN FEEL</div>
+          </div>
+          <div class="hero-art" id="heroArt">
+            <div class="art-orbit"></div>
+            <div class="hero-emblem">
+              <span>SUGAR<br />LIFE</span><small>BEAUTY IN EVERY DETAIL</small><i></i>
+            </div>
+            <div class="floating-tag">Pure care. Pure beauty.</div>
+            <div class="hero-index">01 / 03</div>
+          </div>
+        </div>
+        <div class="intro-strip">
+          <h2>Красота начинается с ощущения заботы о себе.</h2>
+          <p>Подберите средство под свою технику и тип волос. Мы поможем найти комфортный ритм ухода.</p>
+        </div>
+        <div class="home-promos">
+          <div class="promo-heading">
+            <div>
+              <div class="eyebrow">Откройте Sugar Life</div>
+              <h2>Ваш следующий<br />любимый ритуал.</h2>
+            </div>
+            <p>
+              Знакомьтесь с направлениями бренда и находите средства для профессионального ухода и ежедневной
+              заботы о себе.
+            </p>
+          </div>
+          <div class="home-banner-grid">
+            <article class="home-banner primary" data-open="paste">
+              <div class="banner-copy">
+                <div class="eyebrow">Профессиональная линия</div>
+                <h3>Гладкость начинается<br />с правильной пасты.</h3>
+                <p>THE SUGAR PASTE — шесть вариантов плотности для разных условий и техник работы.</p>
+                <span class="banner-cta">Выбрать сахарную пасту ↗</span>
+              </div>
+              <img
+                class="banner-product source-banner"
+                src="images/products/paste.webp"
+                alt="Сахарная паста Sugar Life"
+                loading="lazy"
+              />
+            </article>
+            <article class="home-banner secondary" data-open="white-gold">
+              <div class="banner-copy">
+                <div class="eyebrow">Особенная формула</div>
+                <h3>WHITE<br />GOLD</h3>
+                <p>Линейка на основе белой ангарской глины и лиофилизированного кокосового молочка.</p>
+                <span class="banner-cta">Открыть линейку ↗</span>
+              </div>
+              <img
+                class="banner-product source-banner"
+                src="images/products/white-gold.webp"
+                alt="Сахарная паста White Gold"
+                loading="lazy"
+              />
+            </article>
+          </div>
+          <div class="mini-feature-row">
+            <article class="mini-feature" data-open="fruit-life">
+              <small>01 · FRUIT LIFE</small>
+              <h3>Яркий характер</h3>
+              <p>Фруктовая линейка пасты: четыре аромата и четыре вида плотности.</p>
+            </article>
+            <article class="mini-feature" data-filter-link="paste">
+              <small>02 · COSMO</small>
+              <h3>Космический уход</h3>
+              <p>Отдельное направление Sugar Life для эстетики процедуры депиляции.</p>
+            </article>
+            <article class="mini-feature" data-page="brand">
+              <small>03 · SUGAR LIFE</small>
+              <h3>Ближе к бренду</h3>
+              <p>Узнайте о философии, продуктах и производстве Sugar Life.</p>
+            </article>
+          </div>
+          <div class="spotlight">
+            <div class="spotlight-head">
+              <div>
+                <div class="eyebrow">Из актуального ассортимента</div>
+                <h3>Знакомьтесь с новыми<br />любимыми средствами.</h3>
+              </div>
+              <span class="banner-cta" data-page="catalog">Весь каталог ↗</span>
+            </div>
+            <div class="spotlight-grid">
+              <article class="spotlight-card" data-open="brightening-complex">
+                <small>Уход за лицом</small>
+                <div>
+                  <h4>Осветляющий комплекс для лица</h4>
+                  <p>Средства для ухода за кожей и работы с её тоном.</p>
+                </div>
+                <span>Подробнее ↗</span>
+              </article>
+              <article class="spotlight-card" data-open="body-souffle-soap">
+                <small>Уход за телом</small>
+                <div>
+                  <h4>Мыло-суфле для тела</h4>
+                  <p>Нежное очищение без сульфатов на основе мыльной основы.</p>
+                </div>
+                <span>Подробнее ↗</span>
+              </article>
+              <article class="spotlight-card" data-open="face-peeling-scrub">
+                <small>Очищение и обновление</small>
+                <div>
+                  <h4>Пилинг-скраб для лица</h4>
+                  <p>Формула со скрабирующими гранулами, центеллой и кислотами.</p>
+                </div>
+                <span>Подробнее ↗</span>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="page" id="catalog">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">Подбор средств</div>
+            <h1>Каталог</h1>
+          </div>
+          <p>Средства для профессионального и домашнего ухода. Выберите свою формулу гладкости.</p>
+        </div>
+        <div class="catalog-banners">
+          <article class="catalog-banner paste-banner" data-open="paste">
+            <div>
+              <div class="eyebrow">Профессиональная депиляция</div>
+              <h2>Сахарная паста<br />под вашу технику.</h2>
+              <p>THE SUGAR PASTE · WHITE GOLD · FRUIT LIFE · COSMO</p>
+            </div>
+            <span class="banner-cta">Подобрать пасту ↗</span
+            ><img
+              class="banner-product source-banner"
+              src="images/products/paste.webp"
+              alt="Сахарная паста Sugar Life"
+              loading="lazy"
+            />
+          </article>
+          <article class="catalog-banner care-banner" data-filter-link="care">
+            <div>
+              <div class="eyebrow">Уход и забота</div>
+              <h2>Продуманный уход<br />каждый день.</h2>
+              <p>Средства для лица, тела и волос из ассортимента Sugar Life.</p>
+            </div>
+            <span class="banner-cta">Смотреть средства ↗</span
+            ><img
+              class="banner-product source-banner"
+              src="images/products/brightening-complex.webp"
+              alt="Уходовая серия Sugar Life"
+              loading="lazy"
+            />
+          </article>
+        </div>
+        <div class="filters" role="group" aria-label="Фильтр каталога">
+          <button class="filter active" aria-pressed="true" data-filter="all">Все продукты</button
+          ><button class="filter" aria-pressed="false" data-filter="paste">Сахарная паста</button
+          ><button class="filter" aria-pressed="false" data-filter="care">Уход</button
+          ><button class="filter" aria-pressed="false" data-filter="face">Лицо</button
+          ><button class="filter" aria-pressed="false" data-filter="body">Тело</button
+          ><button class="filter" aria-pressed="false" data-filter="hair">Волосы</button>
+        </div>
+        <div class="product-grid" id="productGrid"></div>
+      </section>
+      <section class="page" id="detail">
+        <div class="backline"><span class="text-link" data-page="catalog">← Вернуться в каталог</span></div>
+        <div class="detail-layout">
+          <div class="detail-visual" id="detailVisual"></div>
+          <div class="detail-copy">
+            <div class="eyebrow" id="detailCategory">THE SUGAR PASTE</div>
+            <h1 id="detailName">THE SUGAR PASTE</h1>
+            <p class="detail-lead" id="detailLead"></p>
+            <div class="detail-price" id="detailPrice"></div>
+            <span class="field-label" id="densityLabel">Плотность</span>
+            <div class="choice-row" id="densityChoices" role="group" aria-labelledby="densityLabel"></div>
+            <span class="field-label" id="volumeLabel">Объём</span>
+            <div class="choice-row" id="volumeChoices" role="group" aria-labelledby="volumeLabel"></div>
+            <p class="detail-note" id="detailNote" hidden>
+              Цена на этот товар появится после согласования, пока его нельзя добавить в корзину.
+            </p>
+            <div class="buy-row">
+              <div class="qty">
+                <button id="qtyMinus" aria-label="Уменьшить количество">−</button
+                ><span id="detailQty" aria-live="polite">1</span
+                ><button id="qtyPlus" aria-label="Увеличить количество">+</button>
+              </div>
+              <button class="btn" id="addToCart">Добавить в корзину <span class="arrow">↗</span></button>
+            </div>
+            <div class="detail-tabs">
+              <div class="tab-buttons" role="tablist" aria-label="Информация о товаре">
+                <button
+                  class="active"
+                  role="tab"
+                  id="tab-description"
+                  aria-controls="tabContent"
+                  aria-selected="true"
+                  data-tab="description"
+                >
+                  Описание</button
+                ><button
+                  role="tab"
+                  id="tab-use"
+                  aria-controls="tabContent"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tab="use"
+                >
+                  Применение</button
+                ><button
+                  role="tab"
+                  id="tab-features"
+                  aria-controls="tabContent"
+                  aria-selected="false"
+                  tabindex="-1"
+                  data-tab="features"
+                >
+                  Характеристики
+                </button>
+              </div>
+              <div
+                class="tab-content"
+                id="tabContent"
+                role="tabpanel"
+                aria-labelledby="tab-description"
+                tabindex="0"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="page" id="brand">
+        <div class="brand-hero">
+          <div>
+            <div class="eyebrow">Знакомство с Sugar Life</div>
+            <h1>Больше,<br />чем просто<br /><em>уход.</em></h1>
+            <p>
+              Мы верим, что красота — это не стандарт, а ощущение уверенности и заботы о себе. С 2013 года Sugar
+              Life производит в Казахстане сахарную пасту для депиляции и средства по уходу за кожей.
+            </p>
+            <button class="btn outline" type="button" data-scroll="production">
+              Как создаётся продукт <span class="arrow">↓</span>
+            </button>
+          </div>
+          <div class="brand-art">
+            <div class="brand-ring"></div>
+            <div class="brand-disc brand-motion" aria-label="Анимированная композиция Sugar Life">
+              <div class="motion-halo halo-one"></div>
+              <div class="motion-halo halo-two"></div>
+              <div class="motion-orb orb-one"></div>
+              <div class="motion-orb orb-two"></div>
+              <div class="motion-core">
+                <span class="motion-word">SUGAR<br />LIFE</span><small>BEAUTY IN EVERY DETAIL</small><i></i>
+              </div>
+              <div class="motion-spark spark-one">✳</div>
+              <div class="motion-spark spark-two">✧</div>
+              <div class="motion-spark spark-three">·</div>
+            </div>
+          </div>
+        </div>
+        <section class="certificates">
+          <div class="cert-head">
+            <div>
+              <div class="eyebrow">Качество и доверие</div>
+              <h2>Наши сертификаты</h2>
+              <p>Документы, подтверждающие качество и соответствие продукции.</p>
+            </div>
+            <span class="cert-index">SUGAR LIFE · QUALITY</span>
+          </div>
+          <div class="cert-grid">
+            <article class="cert-card">
+              <a class="cert-frame" href="images/certificates/svidetelstvo.webp" target="_blank" rel="noopener"
+                ><img
+                  src="images/certificates/svidetelstvo.webp"
+                  alt="Свидетельство о государственной регистрации продукции Sugar Life"
+                  loading="lazy"
+              /></a>
+              <p>Свидетельство о государственной регистрации, ТР ТС 009/2011 · 2016</p>
+            </article>
+            <article class="cert-card">
+              <a class="cert-frame" href="images/certificates/sertifikat-akademiya.webp" target="_blank" rel="noopener"
+                ><img
+                  src="images/certificates/sertifikat-akademiya.webp"
+                  alt="Сертификат Ассоциации индустрии красоты Республики Казахстан учебному центру Sugar Life"
+                  loading="lazy"
+              /></a>
+              <p>Аттестация учебного центра, Ассоциация индустрии красоты РК · 2018</p>
+            </article>
+            <article class="cert-card">
+              <a class="cert-frame" href="images/certificates/blag-diplom.webp" target="_blank" rel="noopener"
+                ><img
+                  src="images/certificates/blag-diplom.webp"
+                  alt="Благодарственный диплом Ассоциации индустрии красоты Республики Казахстан"
+                  loading="lazy"
+              /></a>
+              <p>Благодарственный диплом, Ассоциация индустрии красоты РК · 2018</p>
+            </article>
+            <article class="cert-card">
+              <a class="cert-frame" href="images/certificates/sert-sponsor.webp" target="_blank" rel="noopener"
+                ><img
+                  src="images/certificates/sert-sponsor.webp"
+                  alt="Сертификат официального спонсора конференции Lashmakers' Workshop"
+                  loading="lazy"
+              /></a>
+              <p>Официальный спонсор конференции Lashmakers’ Workshop, Алматы · 2019</p>
+            </article>
+          </div>
+        </section>
+        <div class="brand-story">
+          <div class="eyebrow">Наша философия</div>
+          <h2>Сладкая жизнь<br />начинается с нас.</h2>
+          <div class="story-placeholder">
+            <div class="story-card">
+              <img
+                class="brand-photo"
+                src="images/brand/story.webp"
+                alt="Продукция Sugar Life — уходовая линейка"
+                loading="lazy"
+              />
+            </div>
+            <div class="story-text">
+              <p>
+                В 2013 году появилась идея создать первое в Казахстане производство сахарной пасты для
+                депиляции. Сегодня Sugar Life — это широкая линейка профессиональной пасты и полная серия
+                средств по уходу за кожей, которые изготавливаются на собственном производстве.
+              </p>
+              <p>
+                Ассортимент создан и для профессионалов, которые предпочитают более мягкие пасты, и для
+                начинающих мастеров; отдельно разработаны линейка для домашнего использования и ароматная
+                SPA-линия из восьми видов. Представители Sugar Life работают более чем в 50 городах, а продукцию
+                выбирают люксовые салоны и обучающие центры.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="process" id="production">
+          <div class="eyebrow">От идеи до готового средства</div>
+          <h2>Внимание к каждому<br />этапу производства.</h2>
+          <p class="process-intro">
+            Вся продукция Sugar Life изготавливается на собственном производстве в Казахстане по новейшим
+            технологиям, прошла клинические исследования и имеет сертификаты качества и декларации
+            соответствия.
+          </p>
+          <div class="process-grid">
+            <article class="process-item">
+              <div class="num">01</div>
+              <h3>Идея и формула</h3>
+              <p>
+                Шесть видов плотности пасты позволяют подобрать состав с учётом температурного режима, типа
+                волос и опыта мастера.
+              </p>
+            </article>
+            <article class="process-item">
+              <div class="num">02</div>
+              <h3>Собственное производство</h3>
+              <p>Паста и средства по уходу выпускаются на собственном производстве Sugar Life в Казахстане.</p>
+            </article>
+            <article class="process-item">
+              <div class="num">03</div>
+              <h3>Обучение мастеров</h3>
+              <p>
+                В учебном центре опытные технологи-преподаватели проводят курсы по шугарингу, архитектуре бровей,
+                ламинированию ресниц и косметологии в области депиляции.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+      <section class="page" id="account">
+        <div class="account-shell">
+          <div class="account-aside">
+            <div class="eyebrow">SUGAR LIFE · PERSONAL ACCOUNT</div>
+            <h1>Рады видеть<br /><em>вас снова.</em></h1>
+            <p>
+              Ваше пространство Sugar Life: заказы, адреса и любимые продукты — всё в одном месте. Для входа
+              используйте номер телефона.
+            </p>
+          </div>
+          <div class="account-panel">
+            <div class="account-tabs" role="tablist" aria-label="Вход или регистрация">
+              <button
+                class="account-tab active"
+                type="button"
+                role="tab"
+                id="loginTab"
+                aria-selected="true"
+                aria-controls="loginForm"
+                data-account-tab="login"
+              >
+                Вход</button
+              ><button
+                class="account-tab"
+                type="button"
+                role="tab"
+                id="registerTab"
+                aria-selected="false"
+                aria-controls="registerForm"
+                tabindex="-1"
+                data-account-tab="register"
+              >
+                Регистрация
+              </button>
+            </div>
+            <form id="loginForm" class="account-form" role="tabpanel" aria-labelledby="loginTab" novalidate>
+              <div class="eyebrow">С возвращением</div>
+              <h2>Войти по номеру телефона</h2>
+              <label
+                >Номер телефона<input
+                  type="tel"
+                  id="loginPhone"
+                  name="phone"
+                  placeholder="+7 (___) ___-__-__"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  required
+                  data-required="Укажите номер телефона"
+                  aria-describedby="loginPhone-error" /></label
+              ><span class="field-error" id="loginPhone-error" aria-live="polite"></span>
+              <label
+                >Пароль<input
+                  type="password"
+                  id="loginPassword"
+                  name="password"
+                  placeholder="Введите пароль"
+                  required
+                  data-required="Введите пароль"
+                  autocomplete="current-password"
+                  aria-describedby="loginPassword-error" /></label
+              ><span class="field-error" id="loginPassword-error" aria-live="polite"></span>
+              <button class="account-submit" type="submit">Войти <span>↗</span></button>
+              <button class="account-link" type="button" id="forgotPassword">Забыли пароль?</button>
+              <p class="account-legal">
+                Продолжая, вы соглашаетесь с условиями использования и политикой конфиденциальности.
+              </p>
+            </form>
+            <form
+              id="registerForm"
+              class="account-form"
+              role="tabpanel"
+              aria-labelledby="registerTab"
+              novalidate
+              hidden
+            >
+              <div class="eyebrow">Присоединяйтесь к нам</div>
+              <h2>Регистрация по номеру телефона</h2>
+              <label
+                >Ваше имя<input
+                  type="text"
+                  id="regName"
+                  name="name"
+                  placeholder="Как к вам обращаться"
+                  required
+                  data-required="Укажите имя"
+                  autocomplete="name"
+                  aria-describedby="regName-error" /></label
+              ><span class="field-error" id="regName-error" aria-live="polite"></span>
+              <label
+                >Номер телефона<input
+                  type="tel"
+                  id="regPhone"
+                  name="phone"
+                  placeholder="+7 (___) ___-__-__"
+                  inputmode="tel"
+                  autocomplete="tel"
+                  required
+                  data-required="Укажите номер телефона"
+                  aria-describedby="regPhone-error" /></label
+              ><span class="field-error" id="regPhone-error" aria-live="polite"></span>
+              <label
+                >Пароль<input
+                  type="password"
+                  id="regPassword"
+                  name="password"
+                  placeholder="Не менее 8 символов"
+                  minlength="8"
+                  required
+                  data-required="Придумайте пароль"
+                  autocomplete="new-password"
+                  aria-describedby="regPassword-error" /></label
+              ><span class="field-error" id="regPassword-error" aria-live="polite"></span>
+              <button class="account-submit" type="submit">Зарегистрироваться <span>↗</span></button>
+              <p class="account-legal">
+                Создавая аккаунт, вы соглашаетесь с условиями использования и политикой конфиденциальности.
+              </p>
+            </form>
+          </div>
+          <div class="account-dashboard" id="accountDashboard" aria-live="polite">
+            <div class="dashboard-top">
+              <div>
+                <div class="eyebrow">SUGAR LIFE · МОЙ ПРОФИЛЬ</div>
+                <h2>Здравствуйте, <em id="dashboardName">Гость</em></h2>
+                <p>Здесь собраны ваши данные и история покупок.</p>
+              </div>
+              <div class="dashboard-actions">
+                <button class="dashboard-ghost" id="editProfileBtn" type="button">
+                  Редактировать профиль</button
+                ><button class="dashboard-ghost" id="logoutBtn" type="button">Выйти</button>
+              </div>
+            </div>
+            <div class="dashboard-grid">
+              <div class="dashboard-card">
+                <h3>Личные данные</h3>
+                <div class="profile-fields">
+                  <div class="profile-field">
+                    <small>Имя</small><strong id="profileName">Не указано</strong>
+                  </div>
+                  <div class="profile-field">
+                    <small>Телефон</small><strong id="profilePhone">Не подтверждён</strong>
+                  </div>
+                  <div class="profile-field"><small>Email</small><strong>Не указан</strong></div>
+                  <div class="profile-field"><small>Статус аккаунта</small><strong>Демо-профиль</strong></div>
+                </div>
+                <p class="dashboard-note">
+                  Изменение данных и подтверждение телефона станут доступны после подключения серверной
+                  авторизации.
+                </p>
+              </div>
+              <div class="dashboard-card">
+                <h3>Мои заказы</h3>
+                <div class="order-empty">
+                  <div class="order-icon">SL</div>
+                  <strong>Пока нет заказов</strong>
+                  <p>Когда вы оформите первую покупку, её статус и детали появятся здесь.</p>
+                  <button class="btn" type="button" id="goCatalogBtn">Перейти в каталог ↗</button>
+                </div>
+              </div>
+            </div>
+            <button class="dashboard-demo-link" type="button" id="backToAuthBtn">
+              Вернуться к форме входа
+            </button>
+          </div>
+        </div>
+      </section>
+      <section class="page" id="faq">
+        <div class="faq-page">
+          <div class="eyebrow">HELP · SUGAR LIFE</div>
+          <h1>Частые <em>вопросы.</em></h1>
+          <p class="faq-intro">
+            Собрали короткие ответы на вопросы о продукции и заказах. Раздел будем дополнять.
+          </p>
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary>Как выбрать подходящую плотность сахарной пасты?</summary>
+              <p>
+                Выбор зависит от температуры и влажности в помещении, температуры рук мастера, типа волос и
+                техники работы. Средняя плотность считается универсальной отправной точкой.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Как оформить заказ?</summary>
+              <p>
+                Добавьте нужные товары в корзину, выберите параметры товара и заполните контактные данные в
+                форме оформления заказа.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Можно ли использовать продукцию дома?</summary>
+              <p>
+                Некоторые средства подходят для домашнего ухода, а профессиональные продукты требуют
+                соблюдения инструкции и подходящей техники применения. Перед использованием ознакомьтесь с
+                рекомендациями на упаковке.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Как узнать состав и способ применения?</summary>
+              <p>
+                Основная информация размещается в карточке каждого товара. Перед применением также рекомендуем
+                проверить состав на упаковке и учитывать индивидуальную чувствительность кожи.
+              </p>
+            </details>
+            <details class="faq-item">
+              <summary>Как связаться с командой Sugar Life?</summary>
+              <p>
+                Напишите нам на <a href="mailto:sugarlifekz@mail.ru">sugarlifekz@mail.ru</a> или позвоните по
+                номеру <a href="tel:+77089728050">+7 (708) 972-80-50</a>.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+      <section class="page" id="cart">
+        <div class="cart-page">
+          <div class="eyebrow">Ваш выбор</div>
+          <h1>Корзина</h1>
+          <div id="cartItems"></div>
+          <div id="cartBottom"></div>
+          <div class="checkout" id="checkout">
+            <div id="checkoutForm">
+              <h2>Оформление заказа</h2>
+              <div class="checkout-grid">
+                <div class="checkout-field">
+                  <label for="customerName">Ваше имя</label
+                  ><input
+                    id="customerName"
+                    placeholder="Как к вам обращаться"
+                    autocomplete="name"
+                    required
+                    data-required="Укажите имя"
+                    aria-describedby="customerName-error"
+                  /><span class="field-error" id="customerName-error" aria-live="polite"></span>
+                </div>
+                <div class="checkout-field">
+                  <label for="customerPhone">Телефон</label
+                  ><input
+                    id="customerPhone"
+                    name="phone"
+                    type="tel"
+                    inputmode="tel"
+                    placeholder="+7 (___) ___-__-__"
+                    autocomplete="tel"
+                    required
+                    data-required="Укажите номер телефона"
+                    aria-describedby="customerPhone-error"
+                  /><span class="field-error" id="customerPhone-error" aria-live="polite"></span>
+                </div>
+                <div class="checkout-field">
+                  <label for="customerCity">Город</label
+                  ><input id="customerCity" autocomplete="address-level2" />
+                </div>
+                <div class="checkout-field">
+                  <label for="customerEmail">E-mail (необязательно)</label
+                  ><input
+                    id="customerEmail"
+                    type="email"
+                    placeholder="name@example.com"
+                    autocomplete="email"
+                    aria-describedby="customerEmail-error"
+                  /><span class="field-error" id="customerEmail-error" aria-live="polite"></span>
+                </div>
+                <div class="checkout-field wide">
+                  <label for="customerComment">Комментарий к заказу</label
+                  ><textarea id="customerComment"></textarea>
+                </div>
+              </div>
+              <p class="checkout-note">
+                Демо-режим: заказ не отправляется в магазин, оплата не производится. Способ оплаты и доставка
+                будут подключены после согласования.
+              </p>
+              <button class="btn" id="placeOrder">
+                Подтвердить демо-заказ <span class="arrow">↗</span>
+              </button>
+            </div>
+            <div id="checkoutDone" hidden>
+              <div class="eyebrow">Демо-заказ создан</div>
+              <h2>Спасибо, <span id="orderName"></span>!</h2>
+              <p>Номер заказа: <strong id="orderNumber"></strong></p>
+              <p class="checkout-note">
+                Это демонстрация оформления: заказ не отправлен и оплата не производилась. После подключения
+                backend этот шаг будет создавать реальный заказ.
+              </p>
+              <button class="btn" type="button" id="orderHomeBtn">На главную ↗</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <div class="footer-brand">
+        <a class="logo" href="#home" data-page="home">SUGAR LIFE</a>
+        <p>BEAUTY IN EVERY DETAIL</p>
+        <small>© SUGAR LIFE 2026</small>
+      </div>
+      <div class="footer-column">
+        <h3>FOLLOW US</h3>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.pinterest.com/" target="_blank" rel="noopener">Pinterest</a>
+        <a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.tiktok.com/" target="_blank" rel="noopener">TikTok</a>
+      </div>
+      <div class="footer-column">
+        <h3>HELP</h3>
+        <a href="mailto:sugarlifekz@mail.ru">Contact us</a>
+        <a href="#faq" data-page="faq">FAQ</a>
+      </div>
+    </footer>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="products.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
