@@ -1157,10 +1157,6 @@ h2 {
   transform: rotate(-8deg);
   animation: floatEmblem 7s ease-in-out infinite;
 }
-.hero-emblem span {
-  font: clamp(35px, 5vw, 68px) / 0.88 var(--serif);
-  letter-spacing: 0.08em;
-}
 .hero-emblem small {
   font-size: 8px;
   letter-spacing: 0.2em;
@@ -1271,10 +1267,6 @@ h2 {
   color: #fffaf4;
   z-index: 2;
   text-shadow: 0 2px 18px #80564c55;
-}
-.motion-word {
-  font: clamp(34px, 4.3vw, 58px) / 0.82 var(--serif);
-  letter-spacing: 0.12em;
 }
 .motion-core small {
   font-size: 7px;
@@ -2534,4 +2526,47 @@ h2 {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
+}
+
+/* S’LIFE logo: round mark + wordmark (images/brand) */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  line-height: 0;
+}
+.logo .logo-mark {
+  width: auto;
+  height: 34px;
+}
+.logo .logo-word {
+  width: auto;
+  height: 22px;
+}
+.site-footer .footer-brand .logo .logo-mark {
+  height: 40px;
+}
+.site-footer .footer-brand .logo .logo-word {
+  height: 26px;
+}
+@media (max-width: 800px) {
+  .logo .logo-mark {
+    height: 30px;
+  }
+  .logo .logo-word {
+    height: 19px;
+  }
+}
+/* the logo in white inside the animated emblems */
+.motion-core {
+  width: 72%;
+}
+.emblem-mark {
+  width: 26%;
+  height: auto;
+  margin-bottom: 14px;
+}
+.emblem-word {
+  width: 58%;
+  height: auto;
 }

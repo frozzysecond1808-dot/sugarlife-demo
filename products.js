@@ -52,7 +52,7 @@ const products = [
     price: 5490,
     lead: 'Яркая серия средств для процедуры шугаринга. Выберите подходящий вариант под свои рабочие привычки.',
     description:
-      'Fruit Life — фруктовая линейка сахарной пасты Sugar Life: четыре аромата и четыре вида плотности. Линейка создана для эстетичной процедуры шугаринга с ароматным SPA-эффектом.',
+      'Fruit Life — фруктовая линейка сахарной пасты S’LIFE: четыре аромата и четыре вида плотности. Линейка создана для эстетичной процедуры шугаринга с ароматным SPA-эффектом.',
     use: 'Очистите и высушите кожу. Работайте небольшими зонами: нанесите пасту против роста волос, удалите по направлению роста. После процедуры используйте подходящее средство для завершения ухода.',
     features: [
       'Плотность: ультрамягкая / мягкая / средняя / плотная',
@@ -414,8 +414,4 @@ const products = [
 
 // Order discounts (demo values): the highest tier whose threshold the cart subtotal reaches applies.
 // The cart summary and the FAQ answer are both built from this list.
-const discounts = [
-  { from: 5000, percent: 5 },
-  { from: 10000, percent: 7 },
-  { from: 20000, percent: 10 },
-];
+const discounts = [{ from: 5000, percent: 5 }];

@@ -195,7 +195,7 @@ function renderProducts() {
   document.getElementById('productGrid').innerHTML = list
     .map(
       p =>
-        `<article class="product-card" data-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${esc(p.name)}"><div class="product-visual ${p.color}">${jarMarkup(p.id)}<span class="visual-caption">Sugar Life · Professional</span></div><div class="product-info"><div><h3>${esc(p.name)}</h3><p>${esc(p.category)}${p.type === 'paste' ? ' · профессиональная серия' : ''}</p><span class="card-link">Подробнее о продукте</span></div><span class="price">${priceLabel(p)}</span></div></article>`,
+        `<article class="product-card" data-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${esc(p.name)}"><div class="product-visual ${p.color}">${jarMarkup(p.id)}<span class="visual-caption">S’LIFE · Professional</span></div><div class="product-info"><div><h3>${esc(p.name)}</h3><p>${esc(p.category)}${p.type === 'paste' ? ' · профессиональная серия' : ''}</p><span class="card-link">Подробнее о продукте</span></div><span class="price">${priceLabel(p)}</span></div></article>`,
     )
     .join('');
   document.querySelectorAll('.product-card').forEach(el => {
@@ -356,12 +356,13 @@ function discountFor(subtotal) {
   return { current, next, amount: current ? Math.round((subtotal * current.percent) / 100) : 0 };
 }
 document.getElementById('discountFaq').textContent =
-  'Да, скидка зависит от суммы заказа: ' +
-  [...discounts]
-    .sort((a, b) => a.from - b.from)
-    .map(t => `от ${rub(t.from)} — ${t.percent}%`)
-    .join(', ') +
-  '. Она применяется автоматически и видна в корзине.';
+  (discounts.length === 1
+    ? `Да, при заказе от ${rub(discounts[0].from)} действует скидка ${discounts[0].percent}%`
+    : 'Да, скидка зависит от суммы заказа: ' +
+      [...discounts]
+        .sort((a, b) => a.from - b.from)
+        .map(t => `от ${rub(t.from)} — ${t.percent}%`)
+        .join(', ')) + '. Она применяется автоматически и видна в корзине.';
 function updateCount() {
   document.getElementById('cartCount').textContent = cart.reduce((s, x) => s + x.qty, 0);
   saveCart();
