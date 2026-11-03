@@ -2522,3 +2522,16 @@ h2 {
     overflow-wrap: anywhere;
   }
 }
+/* cart discounts */
+.summary-line.discount span:last-child {
+  color: var(--rose);
+}
+.discount-hint {
+  margin: 14px 0 0;
+  padding: 12px 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+}

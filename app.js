@@ -348,6 +348,20 @@ document.getElementById('addToCart').onclick = () => {
   toast('Товар добавлен в корзину');
   page('cart');
 };
+// Best discount tier the subtotal reaches, the next tier still ahead, and the discount in roubles.
+function discountFor(subtotal) {
+  const tiers = [...discounts].sort((a, b) => a.from - b.from),
+    current = tiers.filter(t => subtotal >= t.from).pop() || null,
+    next = tiers.find(t => subtotal < t.from) || null;
+  return { current, next, amount: current ? Math.round((subtotal * current.percent) / 100) : 0 };
+}
+document.getElementById('discountFaq').textContent =
+  'Да, скидка зависит от суммы заказа: ' +
+  [...discounts]
+    .sort((a, b) => a.from - b.from)
+    .map(t => `от ${rub(t.from)} — ${t.percent}%`)
+    .join(', ') +
+  '. Она применяется автоматически и видна в корзине.';
 function updateCount() {
   document.getElementById('cartCount').textContent = cart.reduce((s, x) => s + x.qty, 0);
   saveCart();
@@ -371,8 +385,9 @@ function renderCart() {
         `<div class="cart-row"><div class="mini-jar">${jarMarkup(x.id)}</div><div><h3>${esc(x.name)}</h3><p>${esc(variant(x))}</p><p>${rub(x.price)} / шт.</p></div><div class="qty"><button data-dec="${i}" aria-label="Уменьшить количество: ${label(x)}">−</button><span aria-live="polite">${x.qty}</span><button data-inc="${i}" aria-label="Увеличить количество: ${label(x)}">+</button></div><div><strong>${rub(x.price * x.qty)}</strong><br><button class="remove" data-remove="${i}" aria-label="Удалить ${label(x)} из корзины">Удалить</button></div></div>`,
     )
     .join('');
-  let total = cart.reduce((s, x) => s + x.price * x.qty, 0);
-  bottom.innerHTML = `<div class="cart-summary"><div class="summary-line"><span>Товары</span><span>${rub(total)}</span></div><div class="summary-line"><span>Доставка</span><span>Рассчитывается отдельно</span></div><div class="summary-line total"><span>Итого</span><span>${rub(total)}</span></div><button class="btn" id="checkoutBtn" aria-controls="checkout" aria-expanded="${document.getElementById('checkout').classList.contains('show')}">Перейти к оформлению</button></div>`;
+  const subtotal = cart.reduce((s, x) => s + x.price * x.qty, 0),
+    { current, next, amount } = discountFor(subtotal);
+  bottom.innerHTML = `<div class="cart-summary"><div class="summary-line"><span>Товары</span><span>${rub(subtotal)}</span></div>${current ? `<div class="summary-line discount"><span>Скидка ${current.percent}%</span><span>−${rub(amount)}</span></div>` : ''}<div class="summary-line"><span>Доставка</span><span>Рассчитывается отдельно</span></div><div class="summary-line total"><span>${current ? 'Итого со скидкой' : 'Итого'}</span><span>${rub(subtotal - amount)}</span></div>${next ? `<p class="discount-hint">Добавьте товаров ещё на ${rub(next.from - subtotal)}, и скидка будет ${next.percent}%</p>` : ''}<button class="btn" id="checkoutBtn" aria-controls="checkout" aria-expanded="${document.getElementById('checkout').classList.contains('show')}">Перейти к оформлению</button></div>`;
   // Re-rendering replaces the buttons, so focus is put back where the user was.
   const refocus = sel => (document.querySelector(sel) || document.querySelector('#cart h1')).focus();
   document.querySelectorAll('[data-dec]').forEach(

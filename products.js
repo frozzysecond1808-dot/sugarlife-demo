@@ -411,3 +411,11 @@ const products = [
     source: 'https://sugarlife.kz/katalog/maslo-dlya-massazha-klassicheskoe',
   },
 ];
+
+// Order discounts (demo values): the highest tier whose threshold the cart subtotal reaches applies.
+// The cart summary and the FAQ answer are both built from this list.
+const discounts = [
+  { from: 5000, percent: 5 },
+  { from: 10000, percent: 7 },
+  { from: 20000, percent: 10 },
+];
