@@ -195,7 +195,7 @@ function renderProducts() {
   document.getElementById('productGrid').innerHTML = list
     .map(
       p =>
-        `<article class="product-card" data-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${esc(p.name)}"><div class="product-visual ${p.color}">${jarMarkup(p.id)}<span class="visual-caption">S’LIFE · Professional</span></div><div class="product-info"><div><h3>${esc(p.name)}</h3><p>${esc(p.category)}${p.type === 'paste' ? ' · профессиональная серия' : ''}</p><span class="card-link">Подробнее о продукте</span></div><span class="price">${priceLabel(p)}</span></div></article>`,
+        `<article class="product-card" data-id="${p.id}" tabindex="0" role="button" aria-label="Открыть ${esc(p.name)}"><div class="product-visual ${p.color}">${jarMarkup(p.id)}<span class="visual-caption">S’LIFE · Профессиональный уход</span></div><div class="product-info"><div><h3>${esc(p.name)}</h3><p>${esc(p.category)}${p.type === 'paste' ? ' · профессиональная серия' : ''}</p><span class="card-link">Подробнее о продукте</span></div><span class="price">${priceLabel(p)}</span></div></article>`,
     )
     .join('');
   document.querySelectorAll('.product-card').forEach(el => {
