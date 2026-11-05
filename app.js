@@ -53,12 +53,14 @@ function page(id, { hash = id, nav = 'push' } = {}) {
     else x.removeAttribute('aria-current');
   });
   setMenu(false);
+  document.title = SITE_TITLE;
   if (id === 'cart') renderCart();
   window.scrollTo({ top: 0, behavior: scrollBehavior() });
   if (nav === 'push' && location.hash !== '#' + hash) history.pushState(null, '', '#' + hash);
   else if (nav === 'replace') history.replaceState(null, '', '#' + hash);
   if (nav !== 'replace') focusPageHeading();
 }
+const SITE_TITLE = document.title;
 const scrollBehavior = () => 'smooth';
 // Moves keyboard/screen-reader focus to the new page instead of leaving it on the clicked control.
 function focusPageHeading() {
@@ -74,8 +76,12 @@ function route(nav) {
     openProduct(h.slice(7), nav);
     return;
   }
+  if (h.startsWith('doc/') && docById(h.slice(4))) {
+    openDoc(h.slice(4), nav);
+    return;
+  }
   const el = h && document.getElementById(h);
-  page(el && el.classList.contains('page') && h !== 'detail' ? h : h === 'detail' ? 'catalog' : 'home', {
+  page(el && el.classList.contains('page') && h !== 'detail' && h !== 'doc' ? h : h === 'detail' ? 'catalog' : 'home', {
     nav,
   });
 }
@@ -309,19 +315,16 @@ function setTab(tab) {
   if (tab === 'description') html = richText(p.description);
   if (tab === 'use')
     html =
-      (p.use ? richText(p.use) : '') +
-      (p.caution
-        ? `<p><strong>Меры предосторожности:</strong> ${esc(p.caution)}</p>`
-        : '<p><strong>Важно:</strong> рекомендации в прототипе носят общий информационный характер. Перед использованием ориентируйтесь на официальную инструкцию конкретного продукта.</p>');
+      (p.use ? richText(p.use) : `<p>${ph('[СПОСОБ ПРИМЕНЕНИЯ]')}</p>`) +
+      `<p><strong>Меры предосторожности:</strong> ${ph(p.caution || '[МЕРЫ ПРЕДОСТОРОЖНОСТИ]')}</p>`;
   if (tab === 'features')
     html =
       `<ul>${p.features.map(x => `<li>${esc(x)}</li>`).join('')}</ul>` +
-      (p.composition
-        ? `<p class="tab-heading">Состав</p>${p.composition
-            .split('\n')
-            .map(x => `<p class="composition">${esc(x)}</p>`)
-            .join('')}`
-        : '') +
+      productFacts(p) +
+      `<p class="tab-heading">Состав</p>${(p.composition || '[СОСТАВ]')
+        .split('\n')
+        .map(x => `<p class="composition">${ph(x)}</p>`)
+        .join('')}` +
       `<div class="specs"><div class="spec"><small>Линейка</small><b>${esc(p.name)}</b></div><div class="spec"><small>Категория</small><b>${esc(p.category)}</b></div></div>`;
   document.getElementById('tabContent').innerHTML = html;
 }
@@ -355,14 +358,13 @@ function discountFor(subtotal) {
     next = tiers.find(t => subtotal < t.from) || null;
   return { current, next, amount: current ? Math.round((subtotal * current.percent) / 100) : 0 };
 }
-document.getElementById('discountFaq').textContent =
-  (discounts.length === 1
-    ? `Да, при заказе от ${rub(discounts[0].from)} действует скидка ${discounts[0].percent}%`
-    : 'Да, скидка зависит от суммы заказа: ' +
-      [...discounts]
-        .sort((a, b) => a.from - b.from)
-        .map(t => `от ${rub(t.from)} — ${t.percent}%`)
-        .join(', ')) + '. Она применяется автоматически и видна в корзине.';
+function discountRule() {
+  const tiers = [...discounts].sort((a, b) => a.from - b.from);
+  if (!tiers.length) return 'скидки от суммы заказа не применяются';
+  if (tiers.length === 1) return `при заказе от ${rub(tiers[0].from)} действует скидка ${tiers[0].percent}%`;
+  return 'скидка зависит от суммы заказа: ' + tiers.map(t => `от ${rub(t.from)} — ${t.percent}%`).join(', ');
+}
+document.getElementById('discountFaq').textContent = `Да, ${discountRule()}. Она применяется автоматически и видна в корзине.`;
 function updateCount() {
   document.getElementById('cartCount').textContent = cart.reduce((s, x) => s + x.qty, 0);
   saveCart();
@@ -429,6 +431,7 @@ function renderCart() {
 }
 // Inline validation: the message is shown under the field (#<id>-error) and linked via aria-describedby.
 function fieldError(input) {
+  if (input.type === 'checkbox') return input.required && !input.checked ? input.dataset.required : '';
   const v = input.value.trim();
   if (input.required && !v) return input.dataset.required || 'Заполните это поле';
   if (input.type === 'tel' && v && !normalizePhone(v)) return 'Введите номер в формате +7 XXX XXX-XX-XX';
@@ -461,14 +464,14 @@ document.querySelectorAll('input[aria-describedby$="-error"]').forEach(input =>
   }),
 );
 document.getElementById('placeOrder').onclick = () => {
-  const nameEl = document.getElementById('customerName');
-  if (
-    !validateFields(['customerName', 'customerPhone', 'customerEmail'].map(id => document.getElementById(id)))
-  )
-    return;
-  const name = nameEl.value.trim();
+  const nameEl = document.getElementById('customerName'),
+    required = ['customerName', 'customerPhone', 'customerEmail', 'consentPd', 'consentOffer'];
+  if (!validateFields(required.map(id => document.getElementById(id)))) return;
+  const name = nameEl.value.trim(),
+    orderNumber = 'SL-' + Math.floor(10000 + Math.random() * 89999);
+  recordConsents('order', orderNumber, ['consent', 'offer'], document.getElementById('consentMarketing').checked);
   document.getElementById('orderName').textContent = name;
-  document.getElementById('orderNumber').textContent = 'SL-' + Math.floor(10000 + Math.random() * 89999);
+  document.getElementById('orderNumber').textContent = orderNumber;
   document.getElementById('checkoutForm').hidden = true;
   document.getElementById('checkoutDone').hidden = false;
   cart = [];
@@ -481,6 +484,7 @@ function resetCheckout() {
     id => (document.getElementById(id).value = ''),
   );
   clearErrors(document.getElementById('checkoutForm'));
+  ['consentPd', 'consentOffer', 'consentMarketing'].forEach(id => (document.getElementById(id).checked = false));
   document.getElementById('checkoutForm').hidden = false;
   document.getElementById('checkoutDone').hidden = true;
   document.getElementById('checkout').classList.remove('show');
@@ -523,6 +527,7 @@ document.getElementById('loginForm').addEventListener('submit', e => {
   const fd = new FormData(e.currentTarget);
   if (!validateFields([...e.currentTarget.querySelectorAll('input')])) return;
   toast('Это демонстрация профиля: настоящая проверка пароля пока не подключена');
+  e.currentTarget.reset();
   showDemoProfile('Покупатель', fd.get('phone'));
 });
 document.getElementById('registerForm').addEventListener('submit', e => {
@@ -530,6 +535,8 @@ document.getElementById('registerForm').addEventListener('submit', e => {
   const fd = new FormData(e.currentTarget);
   if (!validateFields([...e.currentTarget.querySelectorAll('input')])) return;
   toast('Это предварительный просмотр: аккаунт ещё не создан');
+  recordConsents('registration', null, ['consent'], false);
+  e.currentTarget.reset();
   showDemoProfile(fd.get('name'), fd.get('phone'));
 });
 document.getElementById('logoutBtn').addEventListener('click', () => {
@@ -580,6 +587,110 @@ function toast(msg) {
   t.classList.add('show');
   clearTimeout(window.toastTimer);
   window.toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
+}
+// Legal documents: texts live in legal.js, seller data in site-config.js.
+const PLACEHOLDER = /\[[^\]\n<>]{2,}\]/g;
+const markPlaceholders = html => html.replace(PLACEHOLDER, x => `<span class="ph">${x}</span>`);
+const ph = text => markPlaceholders(esc(text));
+function fillTemplate(html) {
+  const rule = discountRule(),
+    values = {
+      ...SELLER,
+      discountText: `${rule[0].toUpperCase()}${rule.slice(1)}. Скидка рассчитывается автоматически и видна в корзине.`,
+    };
+  return markPlaceholders(html.replace(/\{\{(\w+)\}\}/g, (m, key) => esc(values[key] ?? m)));
+}
+const sellerRows = [
+  ['Продавец', '{{name}}'],
+  ['ИНН', '{{inn}}'],
+  ['ОГРН/ОГРНИП', '{{ogrn}}'],
+  ['Юридический адрес', '{{address}}'],
+  ['Телефон', '{{phone}}'],
+  ['Электронная почта', '{{email}}'],
+  ['Режим работы', '{{hours}}'],
+  ['Адрес для возврата товара', '{{returnsAddress}}'],
+];
+const SELLER_DOC = {
+  title: 'Продавец и контакты',
+  html:
+    '<dl class="product-facts">' + sellerRows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('') + '</dl>' +
+    '<p>По вопросам заказа, возврата и претензий пишите на {{email}} или звоните по номеру {{phone}}.</p>',
+};
+const docById = id => (id === 'seller' ? SELLER_DOC : LEGAL_DOCS[id]);
+function openDoc(id, nav = 'push') {
+  const doc = docById(id),
+    body = document.getElementById('docBody');
+  document.getElementById('docTitle').textContent = doc.title;
+  document.getElementById('docMeta').innerHTML = doc.version
+    ? markPlaceholders(`Версия ${esc(doc.version)}, действует с ${esc(doc.date)}`)
+    : '';
+  body.innerHTML = fillTemplate(doc.html);
+  document.getElementById('docDraft').hidden = !body.querySelector('.ph');
+  document.getElementById('docNav').innerHTML = [...Object.keys(LEGAL_DOCS), 'seller']
+    .filter(other => other !== id)
+    .map(other => `<a href="#doc/${other}" data-doc="${other}">${esc(docById(other).title)}</a>`)
+    .join('');
+  page('doc', { hash: 'doc/' + id, nav });
+  document.title = `${doc.title} — S’LIFE`;
+}
+document.addEventListener('click', e => {
+  const link = e.target.closest('a[data-doc]');
+  if (!link || link.target === '_blank') return;
+  e.preventDefault();
+  openDoc(link.dataset.doc);
+});
+document.getElementById('footerSeller').innerHTML = fillTemplate(
+  '{{name}}, ИНН {{inn}}, ОГРН/ОГРНИП {{ogrn}}. Адрес: {{address}}. Телефон: {{phone}}, эл. почта: {{email}}.',
+);
+document.getElementById('faqContacts').innerHTML = fillTemplate(
+  'Напишите нам на {{email}} или позвоните по номеру {{phone}}.',
+);
+document
+  .querySelectorAll('.story-text p, .process-intro, .process-item p')
+  .forEach(el => (el.innerHTML = markPlaceholders(el.innerHTML)));
+if (BRAND_DOCUMENTS.length) {
+  document.getElementById('brandDocuments').hidden = false;
+  document.getElementById('brandDocumentsGrid').innerHTML = BRAND_DOCUMENTS.map(
+    d =>
+      `<article class="cert-card"><a class="cert-frame" href="${esc(d.image)}" target="_blank" rel="noopener"><img src="${esc(d.image)}" alt="${esc(d.alt)}" loading="lazy"></a><p>${esc(d.title)}</p></article>`,
+  ).join('');
+}
+// Sellers fill these fields in products.js; until then the card shows what is still missing.
+function productFacts(p) {
+  const c = p.conformity,
+    conformity = c
+      ? `${esc(c.type)} № ${esc(c.number)}, действует до ${esc(c.validUntil)}, ${esc(c.issuer)}` +
+        (c.registryUrl
+          ? `, <a href="${esc(c.registryUrl)}" target="_blank" rel="noopener">запись в реестре</a>`
+          : '')
+      : ph('[ДОКУМЕНТ О ПОДТВЕРЖДЕНИИ СООТВЕТСТВИЯ: НОМЕР, СРОК ДЕЙСТВИЯ, КЕМ ВЫДАН, ССЫЛКА НА РЕЕСТР]'),
+    rows = [
+      ['Производитель', ph(p.manufacturer || '[ПРОИЗВОДИТЕЛЬ]')],
+      ['Страна происхождения', ph(p.country || '[СТРАНА ПРОИСХОЖДЕНИЯ]')],
+    ];
+  if (!p.features.some(x => x.startsWith('Срок годности')))
+    rows.push(['Срок годности', ph(p.shelfLife || '[СРОК ГОДНОСТИ]')]);
+  rows.push(['Подтверждение соответствия', conformity]);
+  return `<dl class="product-facts">${rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>`;
+}
+// Without a server this log stays in the browser: no name, phone or other contact data, only
+// what was accepted, when and in which document version. The returned record is what a future
+// order API must store on the server: only that makes the consent provable.
+const CONSENT_KEY = 'slife-consents-v1';
+function recordConsents(context, reference, documents, marketing) {
+  const at = new Date().toISOString(),
+    record = {
+      context,
+      reference,
+      at,
+      documents: Object.fromEntries(documents.map(id => [id, LEGAL_DOCS[id].version])),
+      marketing: { granted: marketing, at },
+    };
+  try {
+    const log = JSON.parse(localStorage.getItem(CONSENT_KEY) || '[]');
+    localStorage.setItem(CONSENT_KEY, JSON.stringify([...log, record].slice(-20)));
+  } catch (e) {}
+  return record;
 }
 // Gentle pointer-driven motion on desktop.
 window.addEventListener('pointermove', e => {

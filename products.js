@@ -1,3 +1,8 @@
+// Fields a product card shows; fill them in for every product. Until then the card shows a placeholder:
+//   manufacturer: 'Наименование изготовителя, адрес', country: 'Страна', shelfLife: 'Срок годности',
+//   composition: 'Состав', use: 'Способ применения', caution: 'Меры предосторожности',
+//   conformity: { type: 'Декларация о соответствии', number: '…', validUntil: 'ДД.ММ.ГГГГ',
+//                 issuer: 'Кем выдан / заявитель', registryUrl: 'https://pub.fsa.gov.ru/…' },
 // Prices are demo values for the promo site (not the brand's real price list).
 // price = the "от" price shown in the catalog; prices = price per volume where volumes differ.
 const products = [
@@ -8,6 +13,7 @@ const products = [
     type: 'paste',
     price: 1890,
     prices: { '300 г': 1890, '700 г': 3490, '1000 г': 4690 },
+    composition: 'Вода, сахароза, фруктоза, рибоза, экстракт лимона, диатомит',
     lead: 'Профессиональная сахарная паста для комфортной и эффективной процедуры шугаринга. Подберите плотность под температуру рук, помещения и вашу технику работы.',
     description:
       'THE SUGAR PASTE — белая сахарная паста, изготовленная по особой формуле на основе диатомита. Состав: вода, сахароза, фруктоза, рибоза, экстракт лимона и диатомит. Фасовка: 300, 700 и 1000 г.',
