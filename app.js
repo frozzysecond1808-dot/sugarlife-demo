@@ -169,7 +169,7 @@ const esc = s =>
 const productById = id => products.find(p => p.id === id) || products[0];
 function jarMarkup(id = 'paste') {
   const p = productById(id);
-  return `<img class="source-product" src="${p.image}" alt="${esc(p.name)} — оригинальная упаковка" loading="lazy">`;
+  return `<img class="source-product" src="${p.image}" alt="${esc(p.name)}" loading="lazy">`;
 }
 const priceLabel = p =>
   p.price == null ? 'Цена уточняется' : (p.prices && Object.keys(p.prices).length > 1 ? 'от ' : '') + rub(p.price);
@@ -241,11 +241,30 @@ function openProduct(id, nav = 'push') {
   document.getElementById('detailCategory').textContent = currentProduct.category;
   document.getElementById('detailLead').textContent = currentProduct.lead;
   document.getElementById('detailVisual').className = 'detail-visual ' + currentProduct.color;
-  document.getElementById('detailVisual').innerHTML = jarMarkup(currentProduct.id);
+  showPhoto(0);
   renderChoices();
   updateDetailPrice();
   setTab('description');
   page('detail', { hash: 'detail/' + currentProduct.id, nav });
+}
+// Product page gallery: the big picture plus one thumbnail button per card.
+function showPhoto(index) {
+  const p = currentProduct;
+  document.getElementById('detailVisual').innerHTML =
+    `<img class="source-product" src="${p.gallery[index]}" alt="${esc(p.name)}, фото ${index + 1}">`;
+  document.getElementById('detailThumbs').innerHTML = p.thumbs
+    .map(
+      (src, i) =>
+        `<button type="button" data-photo="${i}" aria-label="Фото ${i + 1}" aria-pressed="${i === index}"><img src="${src}" alt=""></button>`,
+    )
+    .join('');
+  document.querySelectorAll('[data-photo]').forEach(
+    b =>
+      (b.onclick = () => {
+        showPhoto(+b.dataset.photo);
+        document.querySelector(`[data-photo="${b.dataset.photo}"]`).focus();
+      }),
+  );
 }
 function renderChoices() {
   document.getElementById('densityChoices').innerHTML = currentProduct.densities
@@ -325,7 +344,7 @@ function setTab(tab) {
         .split('\n')
         .map(x => `<p class="composition">${ph(x)}</p>`)
         .join('')}` +
-      `<div class="specs"><div class="spec"><small>Линейка</small><b>${esc(p.name)}</b></div><div class="spec"><small>Категория</small><b>${esc(p.category)}</b></div></div>`;
+      `<div class="specs"><div class="spec"><small>Линейка</small><b>${esc(p.line)}</b></div><div class="spec"><small>Категория</small><b>${esc(p.category)}</b></div></div>`;
   document.getElementById('tabContent').innerHTML = html;
 }
 document
@@ -665,6 +684,7 @@ function productFacts(p) {
           : '')
       : ph('[ДОКУМЕНТ О ПОДТВЕРЖДЕНИИ СООТВЕТСТВИЯ: НОМЕР, СРОК ДЕЙСТВИЯ, КЕМ ВЫДАН, ССЫЛКА НА РЕЕСТР]'),
     rows = [
+      ['Артикул', esc(p.sku)],
       ['Производитель', ph(p.manufacturer || '[ПРОИЗВОДИТЕЛЬ]')],
       ['Страна происхождения', ph(p.country || '[СТРАНА ПРОИСХОЖДЕНИЯ]')],
     ];

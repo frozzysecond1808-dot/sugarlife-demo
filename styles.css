@@ -2971,3 +2971,54 @@ h2 {
   hyphens: auto;
   overflow-wrap: anywhere;
 }
+
+/* product cards are 3:4 pictures: keep the whole card, text included */
+.product-visual.photo {
+  height: auto;
+  aspect-ratio: 3 / 4;
+}
+.detail-media {
+  position: sticky;
+  top: 115px;
+  min-width: 0;
+}
+.detail-media .detail-visual.photo {
+  position: relative;
+  top: auto;
+  height: auto;
+  aspect-ratio: 3 / 4;
+}
+.detail-thumbs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+.detail-thumbs button {
+  padding: 0;
+  border: 1px solid var(--line);
+  background: none;
+  line-height: 0;
+}
+.detail-thumbs button[aria-pressed='true'] {
+  border-color: var(--ink);
+}
+.detail-thumbs img {
+  width: 100%;
+  height: auto;
+}
+.story-card .brand-photo {
+  position: relative;
+  z-index: 1;
+  object-fit: contain;
+  padding: 24px;
+}
+@media (max-width: 800px) {
+  .detail-media {
+    position: static;
+  }
+}
+.home-banner.secondary .banner-product.source-banner,
+.catalog-banner.care-banner .banner-product.source-banner {
+  background: transparent;
+}
